@@ -13,12 +13,14 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-
     @Column
     String title;
 
     @Column
     String contents;
+
+    @Column
+    String writingtime;
 
     @ManyToOne
     @JoinColumn(name = "userInfoId")

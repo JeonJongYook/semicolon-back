@@ -1,6 +1,8 @@
 package com.webmister.semicolon.controller;
 
+import com.webmister.semicolon.domain.Report;
 import com.webmister.semicolon.domain.UserInfo;
+import com.webmister.semicolon.dto.Post;
 import com.webmister.semicolon.request.FindUserOnlyOneResponse;
 import com.webmister.semicolon.request.UserInfoRequest;
 import com.webmister.semicolon.response.FindUserOnlyOneRequest;
@@ -53,11 +55,20 @@ public class UserInfoController {
     }
 
     @PostMapping("/signUp")
-    public void signUp(@RequestBody UserInfoRequest userInfoRequest) {
-        userInfoService.join(userInfoRequest);
+    public ResponseEntity<Boolean> signUp(@RequestBody UserInfoRequest userInfoRequest) {
+        HttpHeaders resHeaders = new HttpHeaders();
+        resHeaders.add("Content-Type", "application/json;charset=UTF-8");
+
+        try {
+            if (userInfoService.checkDupicateEmail(userInfoRequest.getUserEmail()) & userInfoService.checkDupicateUserNickname(userInfoRequest.getUserNickName()))
+                userInfoService.signUp(userInfoRequest);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Boolean.FALSE, resHeaders, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(Boolean.TRUE, resHeaders, HttpStatus.OK);
+
     }
-
-
 
 
 }
