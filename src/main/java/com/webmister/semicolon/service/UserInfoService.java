@@ -27,7 +27,7 @@ public class UserInfoService {
         return AllUser;
     }
 
-    public  boolean checkDupicateEmail(String userEmail) {
+    public boolean checkDupicateEmail(String userEmail) {
         return userInfoRepository.existsByUserEmail(userEmail);
     }
 
