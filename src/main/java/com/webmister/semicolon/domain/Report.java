@@ -15,9 +15,11 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+
     @Column
     @CreationTimestamp
     private Timestamp reportCreatTime;
+
 
     @Column
     private String comment;
@@ -33,6 +35,9 @@ public class Report {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String contents;
+
+    @Column
+    String writingtime;
 
     @ManyToOne
     @JoinColumn(name = "userInfoId")
