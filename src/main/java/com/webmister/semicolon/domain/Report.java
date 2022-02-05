@@ -2,8 +2,10 @@ package com.webmister.semicolon.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.security.Timestamp;
 
 @Entity
 @Data
@@ -13,12 +15,24 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column
+    @CreationTimestamp
+    private Timestamp reportCreatTime;
 
     @Column
-    String title;
+    private String comment;
 
     @Column
-    String contents;
+    private String reportImageUrl;
+
+    @Column
+    private int likeCount;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String contents;
 
     @ManyToOne
     @JoinColumn(name = "userInfoId")
